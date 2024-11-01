@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <head name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENERGETIC</title>
+    <title>Dados de Energia</title>
 </head>
 <body>
-
-    <form>
-        
-        <p>Injeção diária: <input type="number" name="inj_d" id="inj_d"><span> kWh </span></p>
-        <p>Consumo diário: <input type="number" name="cons_d" id="cons_d"><span> kWh </span></p>
-        <p>Geração diária: <input type="number" name="ger_d" id="ger_d"><span> kWh </span></p>
-        <p>Injeção acumulada: <span id="inj_a_result">0 kWh</span></p>
-        <p>Consumo acumulado: <span id="cons_a_result">0 kWh</span></p>
-        <p>Geração acumulada: <span id="ger_a_result">0 kWh</span></p>
-        <p>Consumo faturado com impostos: </p>
-
+    <h1>Inserir Dados de Energia</h1>
+    <form action="/calcular" method="POST">
+        <p>Injeção diária: <input type="number" name="injecao_diaria" step="0.01" required> kWh</p>
+        <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
+        <p>Total consumido hoje: <input type="number" name="consumo_total_hoje" step="0.01" required> kWh</p>
+        <p>Total consumido ontem: <input type="number" name="consumo_total_ontem" step="0.01" required> kWh</p>
+        <button type="submit">Calcular</button>
     </form>
-    
-</body>    
+</body>
 </html>
