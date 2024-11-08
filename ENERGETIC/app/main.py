@@ -1,20 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
-from utils import calcular_excedente_deficit, salvar_dados_csv
+from utils import calcular_excedente_deficit, salvar_dados_csv, limpar_csv
 import os
 from datetime import datetime
 
 app = Flask(__name__, template_folder="../templates")
 csv_filepath = os.path.join(os.path.dirname(__file__), '../data/registros.csv')
-
-def limpar_csv(filepath):
-    with open(filepath, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow([
-            'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-            'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-            'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
-            'DATA', 'HORA DO REGISTRO-APP PLACAS'
-        ])
 
 @app.route("/", methods=["GET", "POST"])
 def home():

@@ -11,21 +11,27 @@ def calcular_excedente_deficit(injecao_diaria, consumo_diario):
     return excedente, deficit
 
 def salvar_dados_csv(filepath, dados):
-    # Verificar se o arquivo CSV já existe
-    try:
-        with open(filepath, 'r', newline='') as csvfile:
-            pass
-    except FileNotFoundError:
-        # Se o arquivo não existe, criar e adicionar cabeçalho
-        with open(filepath, 'w', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([
-                'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-                'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-                'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
-                'DATA', 'HORA DO REGISTRO-APP PLACAS'
-            ])
-    # Salvar os dados no arquivo CSV
+    cabeçalho = [
+        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
+        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'DATA', 'HORA DO REGISTRO-APP PLACAS'
+    ]
+    file_exists = os.path.isfile(filepath)
+    
     with open(filepath, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
+        if not file_exists:
+            writer.writerow(cabeçalho)
         writer.writerow(dados)
+
+def limpar_csv(filepath):
+    cabeçalho = [
+        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
+        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'DATA', 'HORA DO REGISTRO-APP PLACAS'
+    ]
+    with open(filepath, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(cabeçalho)
