@@ -1,4 +1,5 @@
 import csv
+import os
 from datetime import datetime
 
 def calcular_excedente_deficit(injecao_diaria, consumo_diario):
@@ -35,3 +36,24 @@ def limpar_csv(filepath):
     with open(filepath, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(cabeçalho)
+
+def ler_dados_csv(filepath):
+    with open(filepath, 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Pular cabeçalho
+        return [row for row in reader]
+
+def atualizar_registro_csv(filepath, index, novos_dados):
+    registros = ler_dados_csv(filepath)
+    registros[index] = novos_dados
+
+    cabeçalho = [
+        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
+        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'DATA', 'HORA DO REGISTRO-APP PLACAS'
+    ]
+    with open(filepath, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(cabeçalho)
+        writer.writerows(registros)

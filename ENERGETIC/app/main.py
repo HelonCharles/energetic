@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from utils import calcular_excedente_deficit, salvar_dados_csv, limpar_csv
+from utils import calcular_excedente_deficit, salvar_dados_csv, limpar_csv, ler_dados_csv, atualizar_registro_csv
 import os
 from datetime import datetime
 
@@ -28,9 +28,6 @@ def home():
 
             resultado = {'excedente': excedente, 'deficit': deficit}
 
-            data_registro_sistema = datetime.now().strftime("%Y-%m-%d")
-            hora_registro_sistema = datetime.now().strftime("%H:%M:%S")
-
             dados_csv = [
                 injecao_diaria, consumo_diario, 
                 injetado_total, consumo_total_hoje,
@@ -47,6 +44,26 @@ def home():
 def limpar():
     limpar_csv(csv_filepath)
     return redirect(url_for('home'))
+
+@app.route("/editar", methods=["GET", "POST"])
+def editar():
+    registros = ler_dados_csv(csv_filepath)
+    if request.method == "POST" and 'editar' in request.form:
+        index = int(request.form['index'])
+        # Atualizar dados com base nos valores do formulário
+        novos_dados = [
+            float(request.form['injecao_diaria']),
+            float(request.form['consumo_diario']),
+            float(request.form['injetado_total']),
+            float(request.form['consumo_total_hoje']),
+            request.form['hora_registro_usuario'],
+            float(request.form['geracao_diaria_placas']),
+            request.form['data_registro_usuario'],
+            request.form['hora_registro_placas']
+        ]
+        atualizar_registro_csv(csv_filepath, index, novos_dados)
+        return redirect(url_for('editar'))
+    return render_template('editar.html', registros=registros)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,35 +2,27 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Dados de Energia</title>
+    <title>Editar Registros de Energia</title>
 </head>
 <body>
-    <h1>Inserir Dados de Energia</h1>
-    <form action="/" method="POST">
+    <h1>Editar Registros de Energia</h1>
+    <form action="/editar" method="POST">
+        <p>Selecione um registro para editar:</p>
+        <select name="index">
+            {% for registro in registros %}
+                <option value="{{ loop.index0 }}">{{ loop.index0 }} - {{ registro }}</option>
+            {% endfor %}
+        </select>
         <p>Injeção diária: <input type="number" name="injecao_diaria" step="0.01" required> kWh</p>
         <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
         <p>Total consumido hoje: <input type="number" name="consumo_total_hoje" step="0.01" required> kWh</p>
         <p>Total consumido ontem: <input type="number" name="consumo_total_ontem" step="0.01" required> kWh</p>
-        <p>Consumo Diário: <input type="number" id="consumo_diario" step="0.01" readonly value="{{ consumo_diario }}"> kWh</p>
+        <p>Consumo Diário: <input type="number" name="consumo_diario" step="0.01" required> kWh</p>
         <p>Geração Diária (Placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
         <p>Data da coleta: <input type="date" name="data_registro_usuario" required></p>
         <p>Hora da coleta: <input type="time" name="hora_registro_usuario" required></p>
         <p>Hora do Registro (APP Placas): <input type="time" name="hora_registro_placas" required></p>
-        <button type="submit" name="calcular">Calcular</button>
+        <button type="submit" name="editar">Editar Registro</button>
     </form>
-    <form action="/limpar" method="POST">
-        <button type="submit">Limpar Dados</button>
-    </form>
-    <p><a href="/editar">Editar Registros</a></p> <!-- Link para a página de edição -->
-    {% if resultado %}
-    <div id="resultado">
-        <p>Excedente: {{ resultado.excedente }} kWh</p>
-        <p>Déficit: {{ resultado.deficit }} kWh</p>
-    </div>
-    {% elif erro %}
-    <div id="erro">
-        <p>{{ erro }}</p>
-    </div>
-    {% endif %}
 </body>
 </html>
