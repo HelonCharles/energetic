@@ -16,7 +16,10 @@
         <p>Data da coleta: <input type="date" name="data_registro_usuario" required></p>
         <p>Hora da coleta: <input type="time" name="hora_registro_usuario" required></p>
         <p>Hora do Registro (APP Placas): <input type="time" name="hora_registro_placas" required></p>
-        <button type="submit">Calcular</button>
+        <button type="submit" name="calcular">Calcular</button>
+    </form>
+    <form action="/limpar" method="POST">
+        <button type="submit">Limpar Dados</button>
     </form>
     {% if resultado %}
     <div id="resultado">
