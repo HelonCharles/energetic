@@ -57,3 +57,18 @@ def atualizar_registro_csv(filepath, index, novos_dados):
         writer = csv.writer(csvfile)
         writer.writerow(cabeçalho)
         writer.writerows(registros)
+
+def excluir_registro_csv(filepath, index):
+    registros = ler_dados_csv(filepath)
+    registros.pop(index)
+
+    cabeçalho = [
+        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
+        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'DATA', 'HORA DO REGISTRO-APP PLACAS'
+    ]
+    with open(filepath, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(cabeçalho)
+        writer.writerows(registros)
