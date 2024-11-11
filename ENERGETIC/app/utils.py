@@ -1,25 +1,25 @@
 import csv
 import os
-from datetime import datetime
 
-def calcular_excedente_deficit(injecao_diaria, consumo_diario):
-    if injecao_diaria > consumo_diario:
-        excedente = injecao_diaria - consumo_diario
+def calcular_excedente_deficit(geracao_diaria_placas, consumo_diario):
+    injecao_diaria = round(geracao_diaria_placas - consumo_diario, 2)
+    if geracao_diaria_placas > consumo_diario:
+        excedente = injecao_diaria
         deficit = 0
     else:
-        deficit = consumo_diario - injecao_diaria
         excedente = 0
-    return excedente, deficit
+        deficit = injecao_diaria
+    return round(excedente, 2), round(deficit, 2), round(injecao_diaria, 2)
 
 def salvar_dados_csv(filepath, dados):
     cabeçalho = [
-        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'INJETADO DIÁRIA-MEDIDOR', 'COD-103(INJETADO TOTAL)-MEDIDOR',
+        'CONSUMO DIÁRIO-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA-PLACAS',
         'DATA', 'HORA DO REGISTRO-APP PLACAS'
     ]
     file_exists = os.path.isfile(filepath)
-    
+
     with open(filepath, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         if not file_exists:
@@ -28,9 +28,9 @@ def salvar_dados_csv(filepath, dados):
 
 def limpar_csv(filepath):
     cabeçalho = [
-        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'INJETADO DIÁRIA-MEDIDOR', 'COD-103(INJETADO TOTAL)-MEDIDOR',
+        'CONSUMO DIÁRIO-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA-PLACAS',
         'DATA', 'HORA DO REGISTRO-APP PLACAS'
     ]
     with open(filepath, 'w', newline='') as csvfile:
@@ -48,9 +48,9 @@ def atualizar_registro_csv(filepath, index, novos_dados):
     registros[index] = novos_dados
 
     cabeçalho = [
-        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'INJETADO DIÁRIA-MEDIDOR', 'COD-103(INJETADO TOTAL)-MEDIDOR',
+        'CONSUMO DIÁRIO-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA-PLACAS',
         'DATA', 'HORA DO REGISTRO-APP PLACAS'
     ]
     with open(filepath, 'w', newline='') as csvfile:
@@ -63,9 +63,9 @@ def excluir_registro_csv(filepath, index):
     registros.pop(index)
 
     cabeçalho = [
-        'COD-24(INJETADO DIÁRIA)-MEDIDOR', 'COD-124(CONSUMO DIÁRIO)-MEDIDOR',
-        'COD-103(INJETADO TOTAL)-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
-        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA(PLACAS)', 
+        'INJETADO DIÁRIA-MEDIDOR', 'COD-103(INJETADO TOTAL)-MEDIDOR',
+        'CONSUMO DIÁRIO-MEDIDOR', 'COD-03(CONSUMO TOTAL)-MEDIDOR',
+        'HORA DO REGISTRO-MEDIDOR', 'GERAÇÃO DIÁRIA-PLACAS',
         'DATA', 'HORA DO REGISTRO-APP PLACAS'
     ]
     with open(filepath, 'w', newline='') as csvfile:

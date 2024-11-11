@@ -15,13 +15,12 @@
         </select>
         <p>Injeção diária: <input type="number" name="injecao_diaria" step="0.01" required> kWh</p>
         <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
+        <p>Consumo diário: <input type="number" name="consumo_diario" step="0.01" required> kWh</p>
         <p>Total consumido hoje: <input type="number" name="consumo_total_hoje" step="0.01" required> kWh</p>
-        <p>Total consumido ontem: <input type="number" name="consumo_total_ontem" step="0.01" required> kWh</p>
-        <p>Consumo Diário: <input type="number" name="consumo_diario" step="0.01" required> kWh</p>
-        <p>Geração Diária (Placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
+        <p>Hora do registro (medidor): <input type="time" name="hora_registro_usuario" required></p>
+        <p>Geração diária (placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
         <p>Data da coleta: <input type="date" name="data_registro_usuario" required></p>
-        <p>Hora da coleta: <input type="time" name="hora_registro_usuario" required></p>
-        <p>Hora do Registro (APP Placas): <input type="time" name="hora_registro_placas" required></p>
+        <p>Hora do registro (APP placas): <input type="time" name="hora_registro_placas" required></p>
         <button type="submit" name="editar">Editar Registro</button>
         <button type="submit" name="excluir">Excluir Registro</button>
     </form>

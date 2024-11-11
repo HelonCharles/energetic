@@ -7,12 +7,12 @@
 <body>
     <h1>Inserir Dados de Energia</h1>
     <form action="/" method="POST">
-        <p>Injeção diária: <input type="number" name="injecao_diaria" step="0.01" required> kWh</p>
-        <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
+        <p>Geração Diária (Placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
         <p>Total consumido hoje: <input type="number" name="consumo_total_hoje" step="0.01" required> kWh</p>
         <p>Total consumido ontem: <input type="number" name="consumo_total_ontem" step="0.01" required> kWh</p>
+        <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
         <p>Consumo Diário: <input type="number" id="consumo_diario" step="0.01" readonly value="{{ consumo_diario }}"> kWh</p>
-        <p>Geração Diária (Placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
+        <p>Injeção Diária: <input type="number" id="injecao_diaria" step="0.01" readonly value="{{ injecao_diaria }}"> kWh</p>
         <p>Data da coleta: <input type="date" name="data_registro_usuario" required></p>
         <p>Hora da coleta: <input type="time" name="hora_registro_usuario" required></p>
         <p>Hora do Registro (APP Placas): <input type="time" name="hora_registro_placas" required></p>
@@ -21,7 +21,7 @@
     <form action="/limpar" method="POST">
         <button type="submit">Limpar Dados</button>
     </form>
-    <p><a href="/editar">Editar Registros</a></p> <!-- Link para a página de edição -->
+    <p><a href="/editar">Editar Registros</a></p>
     {% if resultado %}
     <div id="resultado">
         <p>Excedente: {{ resultado.excedente }} kWh</p>
