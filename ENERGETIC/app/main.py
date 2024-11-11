@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 from utils import calcular_excedente_deficit, salvar_dados_csv, limpar_csv, ler_dados_csv, atualizar_registro_csv, excluir_registro_csv
 import os
 from datetime import datetime
@@ -69,6 +69,10 @@ def editar():
             excluir_registro_csv(csv_filepath, index)
         return redirect(url_for('editar'))
     return render_template('editar.html', registros=registros)
+
+@app.route("/exportar", methods=["GET"])
+def exportar():
+    return send_file(csv_filepath, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
