@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dados de Energia</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Inserir Dados de Energia</h1>
+
+    <!-- Container para o formulário principal -->
+    <div class="form-container">
+        <form action="/" method="POST" class="energy-form">
+            <div class="form-group">
+                <label>Geração Diária (Placas):</label>
+                <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh
+            </div>
+            <div class="form-group">
+                <label>Total consumido hoje:</label>
+                <input type="number" name="consumo_total_hoje" step="0.01" required> kWh
+            </div>
+            <div class="form-group">
+                <label>Total consumido ontem:</label>
+                <input type="number" name="consumo_total_ontem" step="0.01" required> kWh
+            </div>
+            <div class="form-group">
+                <label>Total injetado hoje:</label>
+                <input type="number" name="injetado_total" step="0.01" required> kWh
+            </div>
+            <div class="form-group">
+                <label>Consumo Diário:</label>
+                <input type="number" id="consumo_diario" step="0.01" readonly value="{{ consumo_diario }}"> kWh
+            </div>
+            <div class="form-group">
+                <label>Injeção Diária:</label>
+                <input type="number" id="injecao_diaria" step="0.01" readonly value="{{ injecao_diaria }}"> kWh
+            </div>
+            <div class="form-group">
+                <label>Data da coleta:</label>
+                <input type="date" name="data_registro_usuario" required>
+            </div>
+            <div class="form-group">
+                <label>Hora da coleta:</label>
+                <input type="time" name="hora_registro_usuario" required>
+            </div>
+            <div class="form-group">
+                <label>Hora do Registro (APP Placas):</label>
+                <input type="time" name="hora_registro_placas" required>
+            </div>
+            <div class="button-group">
+                <button type="submit" name="calcular">Calcular</button>
+                <button type="submit" formaction="/limpar" formmethod="POST">Limpar Dados</button>
+                <button type="submit" formaction="/exportar" formmethod="GET">Exportar CSV</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Container para o resultado -->
+    <div class="result-container">
+        <div class="result-group">
+            <label>Excedente:</label>
+            <input type="number" id="excedente" readonly value="{{ resultado.excedente }}"> kWh
+        </div>
+        <div class="result-group">
+            <label>Déficit:</label>
+            <input type="number" id="deficit" readonly value="{{ resultado.deficit }}"> kWh
+        </div>
+    </div>
+
+    {% if erro %}
+    <div id="erro" class="error-container">
+        <p>{{ erro }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>

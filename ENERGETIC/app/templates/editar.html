@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Registros de Energia</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Editar Registros de Energia</h1>
+
+    <!-- Container para a lista de registros -->
+    <div class="table-container">
+        <form action="/editar" method="POST">
+            <p>Selecione um registro para editar:</p>
+            <select name="index">
+                {% for registro in registros %}
+                    <option value="{{ loop.index0 }}">{{ loop.index0 }} - {{ registro }}</option>
+                {% endfor %}
+            </select>
+            <p>Injeção diária: <input type="number" name="injecao_diaria" step="0.01" required> kWh</p>
+            <p>Total injetado hoje: <input type="number" name="injetado_total" step="0.01" required> kWh</p>
+            <p>Consumo diário: <input type="number" name="consumo_diario" step="0.01" required> kWh</p>
+            <p>Total consumido hoje: <input type="number" name="consumo_total_hoje" step="0.01" required> kWh</p>
+            <p>Hora do registro (medidor): <input type="time" name="hora_registro_usuario" required></p>
+            <p>Geração diária (placas): <input type="number" name="geracao_diaria_placas" step="0.01" required> kWh</p>
+            <p>Data da coleta: <input type="date" name="data_registro_usuario" required></p>
+            <p>Hora do registro (APP placas): <input type="time" name="hora_registro_placas" required></p>
+            <button type="submit" name="editar">Editar Registro</button>
+            <button type="submit" name="excluir">Excluir Registro</button>
+        </form>
+    </div>
+
+    <!-- Link de Voltar -->
+    <div class="link-container">
+        <p><a href="/">Voltar</a></p>
+    </div>
+</body>
+</html>

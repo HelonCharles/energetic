@@ -3,7 +3,7 @@ from utils import calcular_excedente_deficit, salvar_dados_csv, limpar_csv, ler_
 import os
 from datetime import datetime
 
-app = Flask(__name__, template_folder="../templates")
+app = Flask(__name__, template_folder="templates")
 csv_filepath = os.path.join(os.path.dirname(__file__), '../data/registros.csv')
 
 @app.route("/", methods=["GET", "POST"])
